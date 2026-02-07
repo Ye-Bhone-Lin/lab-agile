@@ -39,7 +39,7 @@ if st.session_state.done:
         use_container_width=True
     )
     st.markdown(
-        "<h3 style='text-align:center;'>yayyyyy စိတ်ဆိုးပါနဲ့တော့ ဆရာမကြီး ခင်ဗျာ မုန့်များကြီးဝယ်ကျွေးမယ်နော်</h3>",
+        "<h3 style='text-align:center;'>yayyyyyyyyyyyyyyy sate ma soe tok wo lo thet mtt lyk b nor</h3>",
         unsafe_allow_html=True
     )
     st.stop()
