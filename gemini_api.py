@@ -4,6 +4,7 @@ import google.generativeai as genai
 import os
 from dotenv import load_dotenv
 from fastapi.middleware.cors import CORSMiddleware
+from langsmith.run_helpers import traceable
 
 load_dotenv()
 
@@ -24,7 +25,7 @@ app = FastAPI()
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],  # allow all domains (change in production)
+    allow_origins=["*"],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
@@ -34,11 +35,17 @@ class ChatRequest(BaseModel):
     message: str
 
 
+@traceable(name="gemini_chat")
+def call_gemini(message: str):
+    response = model.generate_content(message)
+    return response.text
+
+
 @app.post("/chat")
 async def chat(req: ChatRequest):
 
-    response = model.generate_content(req.message)
+    reply = call_gemini(req.message)
 
     return {
-        "response": response.text
+        "response": reply
     }
